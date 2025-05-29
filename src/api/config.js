@@ -1,7 +1,8 @@
 import axios from 'axios';
 
+// Create axios instance with base configuration
 const api = axios.create({
-  baseURL: import.meta.env.VITE_API_URL || 'http://localhost:5000/api',
+  baseURL: import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000',
   headers: {
     'Content-Type': 'application/json',
   },
@@ -21,9 +22,10 @@ api.interceptors.request.use(
   }
 );
 
+// Auth endpoints
 export const register = async (userData) => {
   try {
-    const response = await api.post('/auth/register', userData);
+    const response = await api.post('/api/auth/register', userData);
     return response.data;
   } catch (error) {
     throw error.response?.data || error.message;
@@ -32,7 +34,7 @@ export const register = async (userData) => {
 
 export const login = async (credentials) => {
   try {
-    const response = await api.post('/auth/login', credentials);
+    const response = await api.post('/api/auth/login', credentials);
     return response.data;
   } catch (error) {
     throw error.response?.data || error.message;
